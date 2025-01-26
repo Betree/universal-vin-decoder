@@ -20,6 +20,7 @@ export interface VINDecoded {
     region: string;
     country: string;
     modelYear: string;
+    possibleModelYears: number[];
     manufacturer: string;
   };
 }
@@ -79,7 +80,7 @@ export const decodeVIN = (vin: string): VINDecoded => {
   const split = splitVIN(vin);
   const region = getRegion(split.wmi);
   const country = getCountry(split.wmi);
-  const modelYear = getModelYear(vin);
+  const { modelYear, possibleModelYears } = getModelYear(vin);
   const manufacturer = getManufacturer(split.wmi);
 
   return {
@@ -89,6 +90,7 @@ export const decodeVIN = (vin: string): VINDecoded => {
       region,
       country,
       modelYear,
+      possibleModelYears,
       manufacturer,
     },
   };

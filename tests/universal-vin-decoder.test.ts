@@ -40,10 +40,16 @@ describe('Universal VIN Decoder', () => {
 
   describe('#Model Year', () => {
     test('Model Year is computed correctly.', () => {
-      expect(getModelYear('W1N2476871W240290')).toEqual('2001');
+      expect(getModelYear('W1N2476871W240290')).toEqual({
+        modelYear: '2001',
+        possibleModelYears: [
+          2001,
+          2031
+        ]
+      });
     });
     test('Model Year is not defined by the manufacturer.', () => {
-      expect(getModelYear('WBA11CM0X08C97826')).toEqual('-');
+      expect(getModelYear('WBA11CM0X08C97826')).toEqual({ modelYear: '-' });
     });
   });
 
@@ -95,6 +101,10 @@ describe('Universal VIN Decoder', () => {
           country: 'Germany',
           modelYear: '2023',
           manufacturer: 'Mercedes-Benz car',
+          possibleModelYears: [
+            1993,
+            2023
+          ],
         },
       });
       expect(decodeVIN('W1N2476871W240290')).toEqual({
@@ -105,6 +115,10 @@ describe('Universal VIN Decoder', () => {
           country: 'Germany',
           modelYear: '2001',
           manufacturer: 'Mercedes-Benz SUV',
+          possibleModelYears: [
+            2001,
+            2031
+          ],
         },
       });
       expect(decodeVIN('W1K3F8CB3PN299204')).toEqual({
@@ -115,6 +129,10 @@ describe('Universal VIN Decoder', () => {
           country: 'Germany',
           modelYear: '2023',
           manufacturer: 'Mercedes-Benz car',
+          possibleModelYears: [
+            1993,
+            2023
+          ],
         },
       });
     });
@@ -193,6 +211,10 @@ describe('Universal VIN Decoder', () => {
           country: 'France',
           modelYear: '2007',
           manufacturer: 'Renault & Eagle Medallion made by Renault',
+          possibleModelYears: [
+            2007,
+            2037
+          ],
         },
       });
       expect(decodeVIN('VF1RJK00870326167')).toEqual({
@@ -203,6 +225,10 @@ describe('Universal VIN Decoder', () => {
           country: 'France',
           modelYear: '2007',
           manufacturer: 'Renault & Eagle Medallion made by Renault',
+          possibleModelYears: [
+            2007,
+            2037
+          ],
         },
       });
       expect(decodeVIN('VF1RJK00870326167')).toEqual({
@@ -213,6 +239,10 @@ describe('Universal VIN Decoder', () => {
           country: 'France',
           modelYear: '2007',
           manufacturer: 'Renault & Eagle Medallion made by Renault',
+          possibleModelYears: [
+            2007,
+            2037
+          ],
         },
       });
     });
@@ -225,6 +255,10 @@ describe('Universal VIN Decoder', () => {
           country: 'France',
           modelYear: '2021',
           manufacturer: 'Citroën',
+          possibleModelYears: [
+            1991,
+            2021,
+          ],
         },
       });
       expect(decodeVIN('VR7EFYHT2PN547380')).toEqual({
@@ -235,6 +269,10 @@ describe('Universal VIN Decoder', () => {
           country: 'France',
           modelYear: '2023',
           manufacturer: 'Citroën',
+          possibleModelYears: [
+            1993,
+            2023,
+          ],
         },
       });
       expect(decodeVIN('VR7EFYHT2PJ708414')).toEqual({
@@ -245,6 +283,10 @@ describe('Universal VIN Decoder', () => {
           country: 'France',
           modelYear: '2023',
           manufacturer: 'Citroën',
+          possibleModelYears: [
+            1993,
+            2023,
+          ],
         },
       });
     });
@@ -257,6 +299,10 @@ describe('Universal VIN Decoder', () => {
           country: 'South Korea',
           modelYear: '1993',
           manufacturer: 'Kia car',
+          possibleModelYears: [
+            1993,
+            2023,
+          ],
         },
       });
       expect(decodeVIN('KNADA818AP6838826')).toEqual({
@@ -267,6 +313,10 @@ describe('Universal VIN Decoder', () => {
           country: 'South Korea',
           modelYear: '1993',
           manufacturer: 'Kia car',
+          possibleModelYears: [
+            1993,
+            2023,
+          ],
         },
       });
       expect(decodeVIN('KNADA818ART907403')).toEqual({
@@ -277,8 +327,28 @@ describe('Universal VIN Decoder', () => {
           country: 'South Korea',
           modelYear: '1994',
           manufacturer: 'Kia car',
+          possibleModelYears: [
+            1994,
+            2024,
+          ],
         },
       });
     });
+    test('Honda VUNs are decoded correctly', () => {
+      expect(decodeVIN('JHMGK3770HX000000')).toEqual({
+        info: {
+          country: "Japan",
+          manufacturer: "Honda car",
+          modelYear: "1987",
+          possibleModelYears: [
+           1987,
+           2017,
+         ],
+         region: "Asia",
+        },
+        isValid: true,
+        vin: "JHMGK3770HX000000",
+      });
+    })
   });
 });
